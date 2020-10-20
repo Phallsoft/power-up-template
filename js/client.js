@@ -139,7 +139,7 @@ var getBadges = function(t){
 
 var boardButtonCallback = function(t){
   return t.popup({
-    title: 'Popup List Example',
+    title: 'Custom Menu',
     items: [
       {
         text: 'Open Modal',
@@ -155,11 +155,6 @@ var boardButtonCallback = function(t){
             // You can add up to 3 action buttons on the modal header - max 1 on the right side.
             actions: [{
               icon: GRAY_ICON,
-              url: 'https://google.com', // Opens the URL passed to it.
-              alt: 'Leftmost',
-              position: 'left',
-            }, {
-              icon: GRAY_ICON,
               callback: (tr) => tr.popup({ // Callback to be called when user clicks the action button.
                 title: 'Settings',
                 url: 'settings.html',
@@ -167,11 +162,6 @@ var boardButtonCallback = function(t){
               }),
               alt: 'Second from left',
               position: 'left',
-            }, {
-              icon: GRAY_ICON,
-              callback: () => console.log('🏎'),
-              alt: 'Right side',
-              position: 'right',
             }],
           })
         }
