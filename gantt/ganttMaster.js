@@ -89,6 +89,9 @@ function GanttMaster() {
   var self = this;
 }
 
+function alert_me_not(msg){
+  console.log(msg);
+}
 
 GanttMaster.prototype.init = function (workSpace) {
   var place=$("<div>").prop("id","TWGanttArea").css( {padding:0, "overflow-y":"auto", "overflow-x":"hidden","border":"1px solid #e5e5e5",position:"relative"});
@@ -530,13 +533,13 @@ GanttMaster.prototype.loadTasks = function (tasks, selectedRow) {
           var err = this.__currentTransaction.errors.pop();
           msg = msg + err.msg + "\n\n";
         }
-        alert(msg);
+        alert_me_not(msg);
       }
       this.__removeAllLinks(task, false);
     }
 
     if (!task.setPeriod(task.start, task.end)) {
-      alert(GanttMaster.messages.GANNT_ERROR_LOADING_DATA_TASK_REMOVED + "\n" + task.name );
+      alert_me_not(GanttMaster.messages.GANNT_ERROR_LOADING_DATA_TASK_REMOVED + "\n" + task.name );
       //remove task from in-memory collection
       this.tasks.splice(task.getRow(), 1);
     } else {
@@ -1230,7 +1233,7 @@ GanttMaster.prototype.addIssue = function () {
   var self = this;
 
   if (self.currentTask && self.currentTask.isNew()){
-    alert(GanttMaster.messages.PLEASE_SAVE_PROJECT);
+    alert_me_not(GanttMaster.messages.PLEASE_SAVE_PROJECT);
     return;
   }
   if (!self.currentTask || !self.currentTask.canAddIssue)
@@ -1246,7 +1249,7 @@ GanttMaster.prototype.openExternalEditor = function () {
     return;
 
   if (self.currentTask.isNew()){
-    alert(GanttMaster.messages.PLEASE_SAVE_PROJECT);
+    alert_me_not(GanttMaster.messages.PLEASE_SAVE_PROJECT);
     return;
   }
 
@@ -1319,7 +1322,7 @@ GanttMaster.prototype.endTransaction = function () {
       var err = this.__currentTransaction.errors[i];
       msg = msg + err.msg + "\n\n";
     }
-    alert(msg);
+    alert_me_not(msg);
 
 
     //try to restore changed tasks
