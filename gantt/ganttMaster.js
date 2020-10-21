@@ -726,7 +726,7 @@ GanttMaster.prototype.saveGantt = function (forTransaction) {
 GanttMaster.prototype.markUnChangedTasksAndAssignments=function(newProject){
   //console.debug("markUnChangedTasksAndAssignments");
   //si controlla che ci sia qualcosa di cambiato, ovvero che ci sia l'undo stack
-  if (this.__undoStack.length>0){
+  if (this.__undoStack && this.__undoStack.length>0){
     var oldProject=JSON.parse(this.__undoStack[0]);
     //si looppano i "nuovi" task
     for (var i=0;i<newProject.tasks.length;i++){
@@ -1354,7 +1354,7 @@ GanttMaster.prototype.checkpoint = function () {
 
 GanttMaster.prototype.undo = function () {
   //console.debug("undo before:",this.__undoStack,this.__redoStack);
-  if (this.__undoStack.length > 0) {
+  if (this.__undoStack && this.__undoStack.length > 0) {
     var his = this.__undoStack.pop();
     this.__redoStack.push(JSON.stringify(this.saveGantt()));
     var oldTasks = JSON.parse(his);
@@ -1387,7 +1387,7 @@ GanttMaster.prototype.redo = function () {
 GanttMaster.prototype.saveRequired = function () {
   //console.debug("saveRequired")
   //show/hide save button
-  if(this.__undoStack.length>0 ) {
+  if(this.__undoStack && this.__undoStack.length>0 ) {
     $("#saveGanttButton").removeClass("disabled");
     $("form[alertOnChange] #Gantt").val(new Date().getTime()); // set a fake variable as dirty
     this.element.trigger("saveRequired.gantt",[true]);
@@ -1647,7 +1647,7 @@ GanttMaster.prototype.manageSaveRequired=function(ev, showSave) {
   function checkChanges() {
     var changes = false;
     //there is somethin in the redo stack?
-    if (self.__undoStack.length > 0) {
+    if (self.__undoStack && self.__undoStack.length > 0) {
       var oldProject = JSON.parse(self.__undoStack[0]);
       //si looppano i "nuovi" task
       for (var i = 0; !changes && i < self.tasks.length; i++) {
