@@ -376,7 +376,8 @@ function editResources(){
 function initializeHistoryManagement(taskId){
 
   //retrieve from server the list of history points in millisecond that represent the instant when the data has been recorded
-  //response: {ok:true, historyPoints: [1498168800000, 1498600800000, 1498687200000, 1501538400000, …]}
+  return {ok:true, historyPoints: [1498168800000, 1498600800000, 1498687200000, 1501538400000]};
+  
   $.getJSON(contextPath+"/applications/teamwork/task/taskAjaxController.jsp", {CM: "GETGANTTHISTPOINTS", OBJID:taskId}, function (response) {
 
     //if there are history points
